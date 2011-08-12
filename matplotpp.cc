@@ -1,11 +1,3 @@
-#if 0
-#!/bin/sh
-g++ -g -O0 -c ./matplotpp.cc ./gl2ps.c
-ar r matplotpp.a matplotpp.o gl2ps.o
-rm matplotpp.o gl2ps.o
-exit
-#endif
-
 /****************************************************************************
 Copyright (c) 2011 Yuichi Katori All Rights Reserved
 License: LGPL
