@@ -1,12 +1,9 @@
 /****************************************************************************
 Copyright (c) 2011 Yuichi Katori All Rights Reserved
-License: LGPL
-Author: Yuichi Katori (katori@sat.t.u-tokyo.ac.jp or yuichi.katori@gmail.com)
+License: Gnu Public license (GPL) v3
+Author: Yuichi Katori (yuichi.katori@gmail.com)
 Project:Matplot++ (MATLAB-like plotting tool in C++).
-Version:0.3.10
-
-TODOs:
-[]Figure open close
+Version:0.3.11
 ****************************************************************************/
 using namespace std;
 #include "matplotpp.h"
