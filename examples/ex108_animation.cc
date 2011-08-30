@@ -12,7 +12,7 @@ void DISPLAY(){
     dvec x,y,z;
     x=linspace(-2,2,n);
     y=linspace(-2,2,n);
-    dmat Z(n,n);
+    dmat Z(n,dvec(n));
     double r2;
     for(int i=0;i<n;++i){//y
 	for(int j=0;j<n;++j){//x	    

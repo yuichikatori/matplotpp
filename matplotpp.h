@@ -2,8 +2,8 @@
 Copyright (c) 2011 Yuichi Katori All Rights Reserved
 License: Gnu Public license (GPL) v3
 Author: Yuichi Katori (yuichi.katori@gmail.com)
-Project:Matplot++ (MATLAB-like plotting tool in C++).
-Version:0.3.11
+Project:MATPLOT++ (MATLAB-like plotting tool in C++).
+Version:0.3.13
 ****************************************************************************/
 
 #include <GL/glut.h>
@@ -24,7 +24,8 @@ typedef vector< vector<float> > tcvec;
 typedef vector< vector< vector<float> > > tcmat;
 
 inline vector<double> linspace(double min,double max,int n){
-    vector<double> a; 
+    vector<double> a;
+    if(n<1){n=1;}
     a.resize(n);
     for(int i=0;i<n;++i){a[i]=min+(max-min)*i/(n-1);}
     return a;
@@ -44,8 +45,11 @@ inline int glutCreateWindow(int left,int top,int width,int height,char c[]){
     return glutCreateWindow(c);
 };
 inline int glutCreateWindow(int left,int top,int width,int height){
-    return glutCreateWindow(left,top,width,height,"MatPlot++");
+    char c[]="adf";
+    return glutCreateWindow(left,top,width,height,
+			    c);
 };
+
 class Figure{///
  public:
     int id;
@@ -65,6 +69,8 @@ class Figure{///
 	Visible=1;
     };
 };
+
+
 class Layer{///
  public:
     int id;
@@ -208,6 +214,7 @@ class Axes{///
     };
 };
 
+
 class Line{///
  public:
     int id;
@@ -291,6 +298,7 @@ class Surface{///
 	EdgeColor="b";
 	LineStyle="-";
 	LineWidth=0.5;
+	NContour=10;
 	V.clear();
 	
     }
@@ -362,6 +370,7 @@ struct ContourPoint{
     int done;
 };
 dmat contourc(dvec x, dvec y, dmat Z, dvec v);
+
 
 class MatPlot{///
  private:
@@ -467,6 +476,7 @@ class MatPlot{///
     
     MatPlot();
     ~MatPlot();
+
     void virtual DISPLAY(){};
 
     void inline debug1(){is_debug1=1;}
@@ -687,3 +697,4 @@ class MatPlot{///
     void print();
 
 };
+

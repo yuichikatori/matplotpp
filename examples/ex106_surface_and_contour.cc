@@ -3,13 +3,12 @@ using namespace std;
 #include "matplotpp.h"
 class MP :public MatPlot{ 
 void DISPLAY(){
-
     // Prepare test data
     int n=100;
     vector<double> x,y,z;
     x=linspace(-2,2,n);
     y=linspace(-2,2,n);
-    vector< vector< double > > Z(n,n),C(n,n);
+    vector< vector< double > > Z(n,vector<double>(n)),C(n,vector<double>(n));
     for(int i=0;i<n;++i){
 	for(int j=0;j<n;++j){
 	    Z[i][j]=sin(3*x[j])+sin(3*y[i])+0.5;	    
@@ -21,7 +20,7 @@ void DISPLAY(){
     // To set current color map, use following commands
     //hsv();
     jet();
-    
+
     // To generate pseudo color plot:
     pcolor(Z);
 

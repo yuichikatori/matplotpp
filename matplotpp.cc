@@ -2,8 +2,8 @@
 Copyright (c) 2011 Yuichi Katori All Rights Reserved
 License: Gnu Public license (GPL) v3
 Author: Yuichi Katori (yuichi.katori@gmail.com)
-Project:Matplot++ (MATLAB-like plotting tool in C++).
-Version:0.3.11
+Project:MATPLOT++ (MATLAB-like plotting tool in C++).
+Version:0.3.13
 ****************************************************************************/
 using namespace std;
 #include "matplotpp.h"
@@ -70,6 +70,7 @@ dvec Axes::make_tick(double min,double max){
 	return tick;
 }
 
+
 /// Line
 
 void Line::reset(){
@@ -91,6 +92,8 @@ Text::Text(int id_){
     id=id_;
     type=0;
 }
+
+
 /// Layer
 Layer::Layer(int id_){ 
     id=id_;	
@@ -160,7 +163,7 @@ void MatPlot::display(){
 	    axes();
 
 	    DISPLAY();
-	    
+
 	    if(is_debug1){cout<<"done"<<endl;}
     
 	    mode_next=1;
@@ -412,6 +415,7 @@ int MatPlot::gco(){
 //void MatPlot::set_line_width(float linewidth){
 //    cl->LineWidth=linewidth;
 //}
+
 // Events ///
 void MatPlot::reshape(int w, int h){
     window_w=w;
@@ -465,6 +469,7 @@ void MatPlot::print(){
 }
 
 // Figure ///
+
 int MatPlot::figure(){
     int h=iFigure*100 + tFigure; hObj=h;
     if(is_debug1){printf("mode: %d handle: %4d Figure\n",mode,h);}
@@ -478,6 +483,7 @@ int MatPlot::figure(){
     iFigure++;
     return h;
 }
+
 void MatPlot::display_figure(){
 
     if(is_debug1){printf("mode: %d handle: %4d Figure\n",
@@ -642,6 +648,7 @@ void MatPlot::display_layer2(){
 	}
     }
 }
+
 /// events (mouse)
 void MatPlot::Layer_mouse(int button, int state, int x, int y ){
     int l,t,w,h;
@@ -1763,8 +1770,8 @@ void MatPlot::display_line(){
 int MatPlot::surface(){
     int h=iSurface*100 + tSurface; hObj=h;
     if(is_debug1){printf("mode: %d handle: %4d Surface\n",mode,h);}
-    
-    if(mode==0){	    
+
+    if(mode==0){
 	ca->add_child(h);	   
 	vSurface.push_back(Surface(h));
 	//as.Parent=gca();
@@ -1773,9 +1780,10 @@ int MatPlot::surface(){
 	
     }
     if(iSurface<vSurface.size()){cs=&vSurface[iSurface];}
-    iSurface++;    
-    return h;
+    iSurface++;
+    return h;    
 }
+
 void MatPlot::surface_config(){
 
     // check data size    
@@ -1817,13 +1825,14 @@ void MatPlot::surface_config(){
 	ca->CLim[1]=Fmax(cs->CDataIndex);
     }
 
-    // CData
+    // CData !!!
     if( (cs->CData.size()==0) && (cs->CDataIndex.size()) ){
 	vector<float> rgb;
-	//vector< vector< vector<float> > > cdata(nzi,nzj);
-	tcmat cdata(ny,nx);
-
+	//tcmat cdata(ny,nx);
+	tcmat cdata(ny);
+	
 	for(int i=0;i<ny;++i){
+	    cdata[i].resize(nx);
 	    for(int j=0;j<nx;++j){
 		rgb=map2color(cs->CDataIndex[i][j],ca->CLim[0],ca->CLim[1]);
 		cdata[i][j]=rgb;
@@ -1834,13 +1843,13 @@ void MatPlot::surface_config(){
 
     // contour plot
     if(cs->V.size()==0){
-	if(cs->NContour==0){
+	if(cs->NContour<1){
 	    cs->NContour=10;		    
 	}
-	cs->V=linspace(Fmin(cs->ZData),Fmax(cs->ZData),cs->NContour);
+	cs->V=linspace(Fmin(cs->ZData),Fmax(cs->ZData),cs->NContour);	
     }
-
 }
+
 /// create surface
 int MatPlot::surface(dmat Z){    
     int h=surface();
@@ -1964,15 +1973,18 @@ int MatPlot::surf(dvec x, dvec y, dmat Z){
 }
 /// create pcolor
 int MatPlot::pcolor(dmat C){
-    int h=surface();
+    
+    int h; h=surface();
+
     cs->type=0;
     cs->XData.clear();
     cs->YData.clear();
     cs->ZData.clear();
     cs->CDataIndex=C;
     cs->CData.clear();
-    
+
     surface_config();
+
     return h;
 }
 int MatPlot::pcolor(tcmat C){
@@ -2297,6 +2309,7 @@ void MatPlot::display_surface_2d(){
 	}
     }
 }
+
 /// display 3d
 void MatPlot::display_surface_3d(){
     vector<float> rgb;
@@ -2433,7 +2446,6 @@ void MatPlot::display_surface_3d(){
     }    
     }//(X,Y,Z)
 }
-
 /// dispaly contour
 dmat contourc(dvec x, dvec y, dmat Z, dvec v){
     //Z(i,j), x(j),y(i)
@@ -2628,7 +2640,8 @@ dmat MatPlot::peaks(int n){
     float sigma=0.4;
     float a1=1,a2=0.5,a3=0.3;
     double x,y;
-    vector< vector< double > > Z(n,n);
+    //vector< vector< double > > Z(n,n);
+    dmat Z(n,dvec(n));
     for(int i=0;i<n;++i){
     for(int j=0;j<n;++j){
 	x=-2.0+4.0*j/(n-1);
@@ -2641,7 +2654,6 @@ dmat MatPlot::peaks(int n){
     }
     return Z;
 }
-
 
 
 // Patch ///
@@ -3012,6 +3024,8 @@ void MatPlot::ptext3c(float x,float y,float z,string s){
 	glutBitmapCharacter( GLUT_BITMAP_HELVETICA_12, s[i] );				
     }
 } 
+
+
 /// Color ///
 
 void MatPlot::Shading(string c){
@@ -3197,7 +3211,7 @@ vector<float> MatPlot::ColorSpec2RGB(string c){
 
     char line[1000],*tp;
     char d[]=" ,:\t\n[]";//delimiter
-
+    /*
     if(c.size()){
 	if( (c[0]=='[') && (c[c.size()-1]==']') ){
 	    sprintf(line,c.c_str());
@@ -3206,7 +3220,7 @@ vector<float> MatPlot::ColorSpec2RGB(string c){
 	    tp=strtok(NULL,d); if(tp){b=atof(tp);}
 	}
     }
-
+    */
     //cout <<"c,r,g,b: "<< c <<" "<<r<<" "<<g <<" "<<b<<endl;
     vector<float> out(3);
     out[0]=r;
@@ -3221,4 +3235,5 @@ string MatPlot::rgb2colorspec(vector<float> rgb){
     string s=c;
     return s;
 }
+
 

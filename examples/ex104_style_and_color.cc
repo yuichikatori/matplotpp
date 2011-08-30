@@ -8,7 +8,7 @@ void DISPLAY(){
     int n=100,m=10;
     vector<double> x(n),y(n);
     x=linspace(0,10,n);
-    vector<vector<double> > Y(m,n);
+    vector<vector<double> > Y(m,vector<double>(n));
     for(int j=0;j<m;++j){
 	for(int i=0;i<n;++i){
 	    x[i]=0.1*i;
@@ -63,7 +63,7 @@ void passive(int x, int y ){mp.passivemotion(x,y); }
 void keyboard(unsigned char key, int x, int y){mp.keyboard(key, x, y); }
 int main(int argc, char* argv[]){
     glutInit(&argc, argv);
-    glutCreateWindow(100,100,500,400,"Colors and styles");
+    glutCreateWindow(100,100,500,400);
     glutDisplayFunc( display );
     glutReshapeFunc( reshape );
     glutIdleFunc( idle );

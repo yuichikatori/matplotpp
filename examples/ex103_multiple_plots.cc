@@ -17,7 +17,7 @@ void DISPLAY(){
 
     // To create a layer 
     layer("first",1);
-    title("move the mouse curcer to lift edge of the window.");
+    title("move the mouse cursor to left window edge.");
 
     // To create multiple lines in one graph
     plot(x,y1);
