@@ -3,7 +3,7 @@ Copyright (c) 2011 Yuichi Katori All Rights Reserved
 License: Gnu Public license (GPL) v3
 Author: Yuichi Katori (yuichi.katori@gmail.com)
 Project:MATPLOT++ (MATLAB-like plotting tool in C++).
-Version:0.3.13
+Version:0.3.13 test
 ****************************************************************************/
 using namespace std;
 #include "matplotpp.h"
