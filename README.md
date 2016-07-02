@@ -1,7 +1,7 @@
 
 Matlab like simple plotting framework in C++
 
-
+![logo](https://github.com/yuichikatori/matplotpp/wiki/images/logo.png)
 
 Welcome
 
