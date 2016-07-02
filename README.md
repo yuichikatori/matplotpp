@@ -1,9 +1,9 @@
 
 Matlab like simple plotting framework in C++
 
-![logo](https://github.com/yuichikatori/matplotpp/wiki/images/logo.png)
+![logo](https://github.com/yuichikatori/matplotpp/wiki/images/logo.png){ style="display:block;margin-left:auto;margin-right:auto;"}
 
-### Welcome
+#### Welcome
 
 MATPLOT++ is a Matlab like simple plotting framework in C++. 
 MATPLOT++ provide a simple plotting tool for non-professional programmers, 
@@ -21,7 +21,7 @@ MATPLOT++ enable you to do this just by adding short code without any external p
 
 
 
-### Minimal Example
+#### Minimal Example
 
 Following screenshot and code are a minimal example that provide just a sinusoidal curve.
 
