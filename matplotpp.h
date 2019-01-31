@@ -18,6 +18,8 @@ Version:0.3.15
 
 #define PI 3.14159265358979323846264
 
+using namespace std;
+
 typedef vector<double> dvec;
 typedef vector< vector<double> > dmat; 
 typedef vector< vector<float> > tcvec; // true color vector
